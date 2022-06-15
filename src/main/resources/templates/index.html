@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>ABC confession</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ <style>
+  .modal-header, h4, .close {
+    background-color: #5cb85c;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+  }
+
+	
+	
+
+  .modal-footer {
+    background-color: #f9f9f9;
+  }
+  </style>
+  
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">ABC confession</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home</a></li>
+      </ul>
+      <form class="navbar-form navbar-right" role="search">
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+      <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Admin Login</a></li>
+    </ul>
+    </div>
+  </div>
+</nav>
+<br/>
+
+
+
+
+<!-- success message -->
+				<div th:if="${param.success}">
+					<div class="alert alert-info">
+					Your confession will be published soon!
+					<br/>
+				<a href="/view"> Click here to view your confession</a>
+				
+			
+					
+    	</div>
+
+					</div>
+									
+				<div th:if="${param.error}">
+					<div class="alert alert-danger">Fail to submit!</div>				
+				</div>
+				
+				<button type="button" data-toggle="modal" data-target="#myModal">Post a confession</button>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	</div>
+	
+	
+	
+	<!-- Create HTML registration form -->
+	
+				
+	 <div class="modal-body">
+	<div class="container-fluid fixed-top p-0">
+		<div class="row">
+			<div class="ml-auto col-auto">
+				
+				<h1>Post Submission</h1>
+				
+				<form th:action="@{/}" method="post">
+					<div class="form-group">
+						<label class="control-label" for="replyId">Reply ID</label>
+						<select name="replyId" class="form-control">
+							<option value= >Not Applicable</option>
+							<option th:each="status:${statusDropdown}" th:value="${status.Id}" th:text="${status.Id}"></option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="control-label"> Text </label>
+						<textarea rows = "10"  name="text" class="form-control" type="text" required autofocus="autofocus"></textarea>
+					</div>
+	
+<br/>
+				  
+					
+					<div class="form-group">
+						<button type="submit" class="btn btn-success">Submit</button>
+					</div>
+					
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	
+	<div class="container">
+		<h3>Confession</h3>
+		<hr/>
+			
+		<form th:action="@{/search}" method="get">
+			<input type="text" name="keyword" th:value="${keyword}" >
+			<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"> Search</span></button>
+			<button type="submit" class="btn btn-info"> <span class="glyphicon glyphicon-remove"></span></button>
+		</form>
+		
+		
+		
+		
+		<br>
+		<br>
+		<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Reply ID</th>
+						<th>Content</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${posts.isEmpty()}">
+						<td colspan="6"> No post available </td>
+					</tr>
+					<tr th:each="post: ${posts}">
+						<td><span th:text="${post.Id}"></span></td>
+						<td><a th:href="@{/reply/{replyId}(replyId=${post.replyId})}"><span th:text="${post.replyId}"></span></a></td>
+						<td><span th:text="${post.text}"></span></td>
+						<td><span th:text="${post.date}"></span></td>
+								
+					</tr>
+				</tbody>
+		</table>
+		
+	</div>
+
+	
+	
+</body>
+</html>

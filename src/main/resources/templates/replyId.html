@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#contents {
+  text-align: center;
+  color: white;
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    }
+    
+ </style>
+
+<style>
+#contents{
+background-color: #A9A9A9;
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+
+
+}
+
+</style>
+
+
+
+
+<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ABC confession</title>
+<link rel="stylesheet" href="style.css" />
+        <script src="script.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ 
+ 
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">ABC confession</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href=""><span class="glyphicon glyphicon-home"> Home</span></a></li>
+      </ul>
+      <form class="navbar-form navbar-right" role="search">
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+      <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Admin Login</a></li>
+    </ul>
+    </div>
+  </div>
+</nav>
+
+
+				
+
+	<div id = "contents">
+					<form th:object="${posts}" method="GET">
+
+			<!-- Add hidden form field to handle update -->
+			<label>ID:</label><br>
+			<input type="text" class="form-control mb-4 col-4"  th:field="*{id}" readonly="readonly" />
+			<br/>
+			
+			<label>REPLY ID:</label><br>
+			<input type="text" th:field="*{replyId}" class="form-control mb-4 col-4" readonly="readonly" >
+			<br/>
+
+			<label>TEXT:</label><br>
+			<textarea type="text" th:field="*{text}" class="form-control mb-4 col-4"readonly="readonly" ></textarea>
+			<br/>
+				
+			<label>DATE:</label><br>
+			<input type="text" th:field="*{date}" class="form-control mb-4 col-4" readonly="readonly" >
+			<br/>
+		</form>
+		</div>
+
+		
+
+</body>
+</html>
