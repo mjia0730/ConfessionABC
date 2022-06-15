@@ -1,9 +1,12 @@
 package net.javaguides.springboot.model;
 
+import java.beans.Transient;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
+
+import javax.persistence.Column;
 
 import org.json.simple.parser.ParseException;
 
@@ -23,7 +26,39 @@ public class SubmissionPost {
 		this.replyId = replyId;
 	}
 	
+	@Column(nullable = true, length = 64)
+    private String photos;
+	
+	
+	public SubmissionPost(Long id, String text, Long replyId) {
+		super();
+		this.id = id;
+		this.text = text;
+		this.replyId = replyId;
+	}
 
+	public SubmissionPost(Long id, String text, Long replyId, String photos) {
+		super();
+		this.id = id;
+		this.text = text;
+		this.replyId = replyId;
+		this.photos = photos;
+	}
+
+	@Transient
+    public String getPhotosImagePath() {
+        if (photos == null || id == null) return null;
+         
+        return "/user-photos/" + id + "/" + photos;
+    }
+
+	public String getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(String photos) {
+		this.photos = photos;
+	}
 
 	
 	

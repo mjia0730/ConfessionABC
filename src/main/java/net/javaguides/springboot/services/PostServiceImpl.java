@@ -52,11 +52,40 @@ public class PostServiceImpl implements PostService{
 	
 	
 	@Override
-	public Queue<SubmissionPost> saveSubmissionPost(String text, Long replyId) throws FileNotFoundException, IOException, ParseException {
+	public Queue<SubmissionPost> saveSubmissionPost(Long id,String text, Long replyId,String photo) throws FileNotFoundException, IOException, ParseException {
 		// TODO Auto-generated method stub
-		SubmissionPost submittedPost = new SubmissionPost(text, replyId);
+		SubmissionPost submittedPost = new SubmissionPost(id,text, replyId,photo);
 		
-		submittedPost.setId();
+		submittedPost.setDate(new Date());
+		submittedQueue.add(submittedPost);
+		jsonfile.add(submittedPost);
+
+		
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		   String json = mapper.writeValueAsString(jsonfile);
+		   try {
+	            FileWriter file = new FileWriter("posts.json");
+	            file.write(json.toString());
+	            file.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+		   
+		if(submittedQueue.size()<=5)
+			executor.schedule(task, 1, TimeUnit.MINUTES);
+		else if(submittedQueue.size()<=10)
+			executor.schedule(task, 2, TimeUnit.MINUTES);
+		else
+			executor.schedule(task, 3, TimeUnit.MINUTES);
+		return submittedQueue;	
+		 
+	}
+	
+	@Override
+	public Queue<SubmissionPost> saveSubmissionPost(Long id,String text, Long replyId) throws FileNotFoundException, IOException, ParseException {
+		// TODO Auto-generated method stub
+		SubmissionPost submittedPost = new SubmissionPost(id,text, replyId);
+		
 		submittedPost.setDate(new Date());
 		submittedQueue.add(submittedPost);
 		jsonfile.add(submittedPost);
@@ -114,7 +143,7 @@ public class PostServiceImpl implements PostService{
 		// TODO Auto-generated method stub
 		while(!submittedQueue.isEmpty()) {
 			SubmissionPost submittedPost = submittedQueue.poll();
-			Post post = new Post(submittedPost.getId(), submittedPost.getText(),submittedPost.getReplyId(),submittedPost.getDate());
+			Post post = new Post(submittedPost.getId(), submittedPost.getText(),submittedPost.getReplyId(),submittedPost.getDate(),submittedPost.getPhotos());
 			postRepository.save(post);
 		}
 	}

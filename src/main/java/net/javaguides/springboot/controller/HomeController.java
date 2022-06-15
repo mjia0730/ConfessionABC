@@ -11,10 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import net.javaguides.springboot.model.FileUploadUtil;
 import net.javaguides.springboot.model.Post;
 import net.javaguides.springboot.model.SubmissionPost;
 import net.javaguides.springboot.services.PostService;
@@ -109,13 +113,14 @@ public class HomeController {
 	
 	//handler method which will handle http post request
 	@PostMapping("")
-	public String postCreation(HttpServletRequest request, Model model) throws FileNotFoundException, IOException, org.json.simple.parser.ParseException {
+	public String postCreation(HttpServletRequest request, Model model,SubmissionPost submissionPost,
+            @RequestParam("image") MultipartFile multipartFile) throws FileNotFoundException, IOException, org.json.simple.parser.ParseException {
 		
-		Long id;
+		Long replyid;
 		if(request.getParameter("replyId").equals(""))
-			id = null;
+			replyid = null;
 		else
-			id = Long.valueOf(request.getParameter("replyId"));
+			replyid = Long.valueOf(request.getParameter("replyId"));
 		String text = request.getParameter("text");
 		
 		for (SubmissionPost item: postService.listAllSubmittedPost()) {
@@ -127,8 +132,25 @@ public class HomeController {
 			if(text.toLowerCase().contains(badTone[i].toLowerCase()))
 				return "redirect:/?error";
 		}
+		//add photo
+		 String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		 if(fileName.isEmpty()) {
+			 submissionPost.setId();
+			 Long id = submissionPost.getId();
+			 postService.saveSubmissionPost(id,text,replyid);
+		 }
+		 
+		 else {
+		 submissionPost.setId();
+		 Long id = submissionPost.getId();
+	     String uploadDir = "user-photos/" + id;
+	 
+	        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+	         
+	        
+		postService.saveSubmissionPost(id,text,replyid,fileName);
+		 }
 		
-		postService.saveSubmissionPost(text,id);
 		return "redirect:/?success";
 	}
 	

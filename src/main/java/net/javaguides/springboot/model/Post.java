@@ -1,7 +1,9 @@
 package net.javaguides.springboot.model;
 
+import java.beans.Transient;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -16,8 +18,33 @@ public class Post {
 	private Long replyId;
 	private Date date = new Date();
 
-
+	@Column(nullable = true, length = 64)
+    private String photos;
 	
+
+	public Post(Long id, String text, Long replyId, Date date, String photos) {
+		super();
+		this.id = id;
+		this.text = text;
+		this.replyId = replyId;
+		this.date = date;
+		this.photos = photos;
+	}
+
+	@Transient
+    public String getPhotosImagePath() {
+        if (photos == null || id == null) return null;
+         
+        return "/user-photos/" + id + "/" + photos;
+    }
+
+	public String getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(String photos) {
+		this.photos = photos;
+	}
 
 
 

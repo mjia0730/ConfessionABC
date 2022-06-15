@@ -89,6 +89,11 @@ background-color: #A9A9A9;
 			<label>DATE:</label><br>
 			<input type="text" th:field="*{date}" class="form-control mb-4 col-4" readonly="readonly" >
 			<br/>
+			
+			<label>Image:</label><br>
+			<div th:if="*{PhotosImagePath}"><img th:src="*{PhotosImagePath}"  width="300"  height="280"/></div>
+			<div th:unless="*{PhotosImagePath}"></div>
+			<br/>
 		</form>
 		</div>
 

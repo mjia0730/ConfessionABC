@@ -74,6 +74,8 @@
 						<th>Reply ID</th>
 						<th>Content</th>
 						<th>Date</th>
+						<th>Image</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -83,9 +85,13 @@
 					<tr th:each="post: ${posts}">
 						<td><span th:text="${post.Id}"></span></td>
 						<td><a th:href="@{/reply/{replyId}(replyId=${post.replyId})}"><span th:text="${post.replyId}"></span></a></td>
-						<td><span th:text="${post.text}"></span></td>
+						<td><span th:text="${post.text}" ></span></td>
 						<td><span th:text="${post.date}"></span></td>
+						<td th:if="${post.PhotosImagePath}"><img th:src="@{${post.PhotosImagePath}}"  width="300"  height="280" /></td>
+						<td th:unless="${post.PhotosImagePath}"></td>
 						<td><a th:href="@{/deletePosted/{id}(id=${post.Id})}" class="btn btn-danger">Delete</a></td>
+						
+						
 					</tr>
 				</tbody>
 		</table>

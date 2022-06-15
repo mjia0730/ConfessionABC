@@ -93,7 +93,7 @@
 				
 				<h1>Post Submission</h1>
 				
-				<form th:action="@{/}" method="post">
+				<form th:action="@{/}" method="post" enctype="multipart/form-data">
 					<div class="form-group">
 						<label class="control-label" for="replyId">Reply ID</label>
 						<select name="replyId" class="form-control">
@@ -105,6 +105,8 @@
 						<label class="control-label"> Text </label>
 						<textarea rows = "10"  name="text" class="form-control" type="text" required autofocus="autofocus"></textarea>
 					</div>
+	  <label>Photos: </label>
+    <input type="file" name="image" accept="image/png, image/jpeg" />
 	
 <br/>
 				  
@@ -144,6 +146,7 @@
 						<th>Reply ID</th>
 						<th>Content</th>
 						<th>Date</th>
+						<th>Image</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -155,6 +158,10 @@
 						<td><a th:href="@{/reply/{replyId}(replyId=${post.replyId})}"><span th:text="${post.replyId}"></span></a></td>
 						<td><span th:text="${post.text}"></span></td>
 						<td><span th:text="${post.date}"></span></td>
+						<td th:if="${post.PhotosImagePath}"><img th:src="@{${post.PhotosImagePath}}"  width="300"  height="280" /></td>
+						<td th:unless="${post.PhotosImagePath}"></td>
+						
+						
 								
 					</tr>
 				</tbody>

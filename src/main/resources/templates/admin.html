@@ -49,7 +49,7 @@
 						<th>Reply ID</th>
 						<th>Content</th>
 						<th>Date</th>
-						<th></th>
+						<th>Image</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -62,6 +62,10 @@
 						<td><span th:text="${post.text}"></span></td>
 						<td><span th:text="${post.date}"></span></td>
 						<td><a th:href="@{/deletePending/{id}(id=${post.Id})}" class="btn btn-danger">Delete</a></td>
+						<td th:if="${post.PhotosImagePath}"><img th:src="@{${post.PhotosImagePath}}"  width="300"  height="280" /></td>
+						<td th:unless="${post.PhotosImagePath}"></td>
+						<td><a th:href="@{/deletePosted/{id}(id=${post.Id})}" class="btn btn-danger">Delete</a></td>
+						
 					</tr>
 				</tbody>
 		</table>

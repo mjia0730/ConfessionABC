@@ -17,7 +17,8 @@ import net.javaguides.springboot.model.SubmissionPost;
 public interface PostService {
 
 	
-	Queue<SubmissionPost> saveSubmissionPost(String text, Long replyId) throws JsonProcessingException, FileNotFoundException, IOException, ParseException;
+	Queue<SubmissionPost> saveSubmissionPost(Long id,String text, Long replyId, String photo) throws JsonProcessingException, FileNotFoundException, IOException, ParseException;
+	Queue<SubmissionPost> saveSubmissionPost(Long id,String text, Long replyId) throws JsonProcessingException, FileNotFoundException, IOException, ParseException;
 	void save();
 	void remove(long id);
 	Queue<SubmissionPost> listAllSubmittedPost();
