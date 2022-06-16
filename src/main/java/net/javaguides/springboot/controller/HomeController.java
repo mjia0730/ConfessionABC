@@ -142,12 +142,12 @@ public class HomeController {
 				else
 					break;
 			}
+			if(subStr.isEmpty())
+				return "redirect:/?error";
 		}
-		if(subStr.isEmpty())
-			return "redirect:/?error";
 				
 		//check for bad tone
-		String[] badTone = {"stupid","idiot","fuck you","fuck", "nigga", "bastard", "dick head", "bitch", "ashole", "cock"};
+		String[] badTone = {"stupid","idiot","fuck", "nigga", "bastard", "dick head", "bitch", "asshole"};
 		for(int i=0; i<badTone.length; i++) {
 			if(text.toLowerCase().contains(badTone[i].toLowerCase()))
 				return "redirect:/?error";
