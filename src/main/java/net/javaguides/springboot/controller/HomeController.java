@@ -123,15 +123,36 @@ public class HomeController {
 			replyid = Long.valueOf(request.getParameter("replyId"));
 		String text = request.getParameter("text");
 		
+		//check if in 5 mins time did user repeatedly post same confession
 		for (SubmissionPost item: postService.listAllSubmittedPost()) {
             if(text.equals(item.getText()))
             	return "redirect:/create?error";
         }
+		
+		//check for spam text
+		String[] str = text.split(" ");
+		java.util.Stack<String> subStr =  new java.util.Stack<>();
+		for(int i=1; i<str.length; i++) {
+			subStr.add(str[i]);
+		}
+		if(subStr.size()>1) {
+			while(!subStr.isEmpty()) {
+				if(subStr.peek().equals(str[0]))
+					subStr.pop();
+				else
+					break;
+			}
+		}
+		if(subStr.isEmpty())
+			return "redirect:/?error";
+				
+		//check for bad tone
 		String[] badTone = {"stupid","idiot","fuck you","fuck", "nigga", "bastard", "dick head", "bitch", "ashole", "cock"};
 		for(int i=0; i<badTone.length; i++) {
 			if(text.toLowerCase().contains(badTone[i].toLowerCase()))
 				return "redirect:/?error";
 		}
+		
 		//add photo
 		 String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		 if(fileName.isEmpty()) {
@@ -141,14 +162,14 @@ public class HomeController {
 		 }
 		 
 		 else {
-		 submissionPost.setId();
-		 Long id = submissionPost.getId();
-	     String uploadDir = "user-photos/" + id;
-	 
-	        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-	         
-	        
-		postService.saveSubmissionPost(id,text,replyid,fileName);
+			 submissionPost.setId();
+			 Long id = submissionPost.getId();
+		     String uploadDir = "user-photos/" + id;
+		 
+		     FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+		         
+		        
+		     postService.saveSubmissionPost(id,text,replyid,fileName);
 		 }
 		
 		return "redirect:/?success";

@@ -16,7 +16,7 @@ import net.javaguides.springboot.model.Post;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long>{
 	
-	//Custom query
+		//Custom query
 		@Query(value = "select * from posts p where p.id like %:id% or p.reply_id like %:replyId% or p.text like %:keyword%", nativeQuery = true)
 		List<Post> findBy(@Param("keyword") String keyword, @Param("id")Long id, @Param("replyId") Long replyId);
 		
