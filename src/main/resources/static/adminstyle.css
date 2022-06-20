@@ -1,0 +1,199 @@
+body{
+    background-image: url("manybluewhale.png");
+    
+}
+
+*{
+    margin: 0;
+    padding: 0%;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+    
+}
+
+nav{
+    background-color: rgb(0, 0, 83);
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 20px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav .logo{
+    width: 160px;
+    margin-right: auto;
+}
+
+nav ul li{
+    list-style: none;
+    display: inline-block;
+    margin-left: 40px;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+}
+
+.container {
+	position: absolute;
+	top: 50%;
+	left: 57%;
+	transform: translate(-50%, -50%);
+}
+
+table {
+	width: 1000px;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+	border-radius: 10px;
+}
+
+th{
+	padding: 15px;
+	background-color: rgba(255,255,255,0.2);
+	color: white;
+}
+
+th {
+	text-align: left;
+}
+
+thead {
+		background-color: rgb(0, 0, 83) ;
+}
+
+tbody {
+
+	background-color: rgba(255,255,255);
+
+}
+
+td {
+	position: relative;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-left: 10px;
+   	padding-top: 10px; 
+	
+}
+
+.btn-clear{
+    font-size: 18px;
+    margin-top: 20px;
+    border-radius: 10px;
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    background-color: rgb(13, 0, 153);
+    border: 2px solid rgb(19, 4, 150);
+    padding: 10px 20px;
+    border-radius: 50px;
+    left: 40%;
+    position: relative;
+}
+
+.btn-search{
+    font-size: 18px;
+    margin-top: 20px;
+    border-radius: 10px;
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    background-color: rgb(13, 0, 153);
+    border: 2px solid rgb(19, 4, 150);
+    padding: 10px 20px;
+    border-radius: 50px;
+    left: 40%;
+    position: relative;
+}
+
+.btn-delete{
+    font-size: 18px;
+    margin-top: 20px;
+    border-radius: 10px;
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    background-color: rgb(13, 0, 153);
+    border: 2px solid rgb(19, 4, 150);
+    padding: 10px 20px;
+    border-radius: 50px;
+	position: absolute;
+	top: 0;
+	right: 5%;
+}
+
+.posted-1{
+    overflow:hidden;
+    margin-top: 20px;
+    position: relative;
+    width: 600px;
+    min-height: 200px;
+    max-height: none;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgba(0, 7, 78, 0.553);
+    border-radius: 10px;
+    
+    left: 27%;
+    padding-left: 10px;
+    padding-top: 10px;
+    
+}
+
+.image{
+
+    left: 20px;
+    border-color: rgba(204, 204, 204, 0);
+    max-width: 500px;
+    height:auto;
+    max-height: none;
+    z-index: 1;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.image img{
+    height: auto;
+    max-width: 500px;
+}
+
+.userpage{
+    background-repeat: repeat;
+    justify-content: center;
+    align-items: center;
+    /* text-align: center; */
+    min-height: 100vh;
+    /* width: 100%;
+    background-image: linear-gradient(rgba(89, 5, 5, 0.3),rgba(0,0,0,0.3));
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center; */
+}
+
+.userpage img{
+    width: 100%;
+    
+    position: absolute;
+    z-index: -1;
+    
+}
+
+.search{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.search-bar input{
+    font-size: 24px;
+    padding: 5px;
+}

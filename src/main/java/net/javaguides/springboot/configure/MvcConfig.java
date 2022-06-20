@@ -7,9 +7,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
+@Configuration //marks the class as a source of bean definitions.
 public class MvcConfig implements WebMvcConfigurer{
 
+	//MVC = model-view-controller
+	//WebMvcConfigurer = will set up the basic support we need for an MVC project, 
+	//such as registering controllers and mappings, type converters, validation support, message converters and exception handling
 	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         exposeDirectory("user-photos", registry);

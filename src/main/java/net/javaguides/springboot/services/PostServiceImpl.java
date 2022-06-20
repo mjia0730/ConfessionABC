@@ -3,6 +3,7 @@ package net.javaguides.springboot.services;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -113,21 +114,27 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public List<Post> findAll(String keyword, Long id, Long replyId){
-		return postRepository.findBy(keyword, id, replyId);
+		List<Post> list = postRepository.findBy(keyword, id, replyId);
+		Collections.reverse(list);
+		return list;
 	}
 
 
 	@Override
 	public List<Post> findByDate(Date date) {
 		// TODO Auto-generated method stub
-		return postRepository.findByDate(date);
+		List<Post> list = postRepository.findByDate(date);
+		Collections.reverse(list);
+		return list;
 	}
 
 
 	@Override
 	public List<Post> findByDateWithoutTime(Date date) {
 		// TODO Auto-generated method stub
-		return postRepository.findByDateWithoutTime(date);
+		List<Post> list = postRepository.findByDateWithoutTime(date);
+		Collections.reverse(list);
+		return list;
 	}
 	
 

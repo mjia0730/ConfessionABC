@@ -103,7 +103,6 @@ public class HomeController {
 
 	@GetMapping("/view")
 	private String viewpage( Model model) {
-		
 		model.addAttribute("latest", postService.view());
 		return "view.html";
 	}

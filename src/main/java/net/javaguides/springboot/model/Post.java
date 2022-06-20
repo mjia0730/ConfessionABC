@@ -20,7 +20,6 @@ public class Post {
 
 	@Column(nullable = true, length = 64)
     private String photos;
-	
 
 	public Post(Long id, String text, Long replyId, Date date, String photos) {
 		super();
