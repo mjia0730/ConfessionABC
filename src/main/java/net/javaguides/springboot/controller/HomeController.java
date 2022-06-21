@@ -157,25 +157,29 @@ public class HomeController {
 				return "redirect:/?error";
 		}
 		
-		//add photo
+		//add photo file 
+		//get the filename of the photo
 		 String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		
+		//if there is no photo file uploaded, add the id, text, and replyid only into the queue
 		 if(fileName.isEmpty()) {
 			 submissionPost.setId();
 			 Long id = submissionPost.getId();
 			 postService.saveSubmissionPost(id,text,replyid);
 		 }
 		 
+		//if there is a photo file uploaded, add the id, text, replyid, filename into the queue
 		 else {
 			 submissionPost.setId();
 			 Long id = submissionPost.getId();
 		     String uploadDir = "user-photos/" + id;
 		 
-		     FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-		         
-		        
+		     //call the method in FileUploadUtil.java classto save file 
+		     FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);        
 		     postService.saveSubmissionPost(id,text,replyid,fileName);
 		 }
 		
+		//return to the index page of success 
 		return "redirect:/?success";
 	}
 	
