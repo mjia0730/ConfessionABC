@@ -106,8 +106,9 @@ public class HomeController {
 	//Handler method wchich will handle http get request
 	@GetMapping("/view")
 	private String viewpage( Model model) {
-		//call the method of view confession id and submission date and time
+		//call the view method to view the confession id and submission date and time after posting
 		model.addAttribute("latest", postService.view());
+		//return to the page of view confession post id
 		return "view.html";
 	}
 	
@@ -193,10 +194,12 @@ public class HomeController {
 		return "redirect:/admin";
 	}
 	
+	//handler method which will handle http post request
 	@GetMapping("/reply/{replyId}")
 	public String reply(@PathVariable (value = "replyId") long replyId) {		
-		// call remove pending post method 
-		this.postService.get(replyId);		
+		// call get replyid method to find the reply id
+		this.postService.get(replyId);	
+		//redirect to the http of replyid
 		return "redirect:/replyId/{replyId}";
 	}
 	
