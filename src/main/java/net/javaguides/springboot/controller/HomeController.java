@@ -92,17 +92,21 @@ public class HomeController {
 		return "admin.html";
 	}
 	
+	//Handler method wchich will handle http get request
+	//view the original post of replyid on the replyId.html page
 	@GetMapping("replyId/{replyId}")
 	private String replypage(@PathVariable (value = "replyId") long replyId, Model model) {
-	Post post = postService.get(replyId);
-		
+		//find the original post of replyid by calling method and display its original post
+		Post post = postService.get(replyId);		
 		model.addAttribute("posts", post);
+		//direct to the page of view reply id
 		return "replyId.html";
 	}
 	
-
+	//Handler method wchich will handle http get request
 	@GetMapping("/view")
 	private String viewpage( Model model) {
+		//call the method of view confession id and submission date and time
 		model.addAttribute("latest", postService.view());
 		return "view.html";
 	}
