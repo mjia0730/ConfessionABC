@@ -1,6 +1,7 @@
 body{
     background-image: url("manybluewhale.png");
-    
+    background-size: 1920px 1080px;
+   	
 }
 
 *{
@@ -14,7 +15,8 @@ body{
 nav{
     background-color: rgb(0, 0, 83);
     width: 100%;
-    position: absolute;
+    height:80px;
+    position: sticky;
     top: 0;
     left: 0;
     padding: 20px 8%;
@@ -29,26 +31,49 @@ nav .logo{
 }
 
 nav ul li{
+	margin-top :10px;
     list-style: none;
     display: inline-block;
     margin-left: 40px;
 }
 
+nav .logo:hover{
+    width: 165px;
+    margin-right: auto;
+}
+
+
+nav ul li a:hover{
+	
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 21px;
+}
+
 nav ul li a{
+	margin-top :10px;
     text-decoration: none;
     color: rgb(255, 255, 255);
     font-size: 20px;
 }
 
 .container {
-	position: absolute;
-	top: 50%;
-	left: 57%;
-	transform: translate(-50%, -50%);
+	padding-bottom: 20px;
+	margin-top: 10%;
+	width:80%;
+	position: relative;
+	background-color:rgb(255, 255, 255);
+	border-radius: 20px;
+}
+
+h1{
+	margin-left: 20px;
+	font-weight: bold;
+	margin-bottom: 20px;
 }
 
 table {
-	width: 1000px;
+	width: 100%;
 	border-collapse: collapse;
 	overflow: hidden;
 	box-shadow: 0 0 20px rgba(0,0,0,0.1);
@@ -72,7 +97,7 @@ thead {
 tbody {
 
 	background-color: rgba(255,255,255);
-
+	padding: 20px 10px;
 }
 
 td {
@@ -80,7 +105,8 @@ td {
 	margin-top: 20px;
 	margin-bottom: 20px;
 	padding-left: 10px;
-   	padding-top: 10px; 
+   	padding-top: 20px; 
+   	padding-bottom: 20px;
 	
 }
 

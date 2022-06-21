@@ -9,7 +9,6 @@ import java.util.Date;
 import javax.persistence.Column;
 
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -18,8 +17,7 @@ public class SubmissionPost {
 	private Long id;
 	private String text;
 	private Long replyId;
-	private Date date;	
-	private Long count= Long.valueOf(0);
+	private Date date;
 	
 	public SubmissionPost(String text, Long replyId) {
 		super();
@@ -102,13 +100,12 @@ public class SubmissionPost {
         Object obj = jsonParser.parse(reader);
 
         JSONArray List = (JSONArray) obj;
-        count = Long.valueOf(List.size());
         if(!List.isEmpty()) {
 	        String[] post = List.get(0).toString().split(",");
 	        for(int i=0; i<post.length; i++) {
 	        	System.out.println(post[i]);
 	        	if(post[i].contains("id")) {
-	        		this.id = Long.valueOf(post[i].substring(5)) + count;
+	        		this.id = Long.valueOf(post[i].substring(5)) + Long.valueOf(List.size());
 	        		break;
 	        	}
 	        }

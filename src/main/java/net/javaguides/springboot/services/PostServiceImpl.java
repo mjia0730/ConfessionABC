@@ -158,7 +158,6 @@ public class PostServiceImpl implements PostService{
 		return postRepository.findAll(Sort.by(Sort.Direction.DESC, "Id")); //reverse the list to display newest post first
 	}
 
-
 	@Override
 	public Post get(long id) { //get the posts for a particular id
 		Optional<Post> optional = postRepository.findById(id);
@@ -172,7 +171,7 @@ public class PostServiceImpl implements PostService{
 	}
 
 
-	
+
 	@Override
 	public void deletePosted(long id) { //recursion method for batch removal
 		while(!postRepository.findByReplyId(id).isEmpty()) {
@@ -225,7 +224,7 @@ public class PostServiceImpl implements PostService{
 
 
 
-
+	//view the submission id and submission date and time after posting
 	@Override
 	public Queue<SubmissionPost> view() {
 		Queue<SubmissionPost> temp = new LinkedList<>();

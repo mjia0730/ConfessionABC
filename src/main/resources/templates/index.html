@@ -4,12 +4,12 @@
     <meta name = "viewport" content="width=device-width, initial-scale=1.0">
     <title>Confession</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    
 </head>
 
 <body>
 
-        <!-----------------landing page----------------->
+       
         
         <div class="hero">
 
@@ -18,14 +18,15 @@
             </video>
 
 
-            <!---------admin login modal pop up-------------->
+       
             <div class="bg-modal-admin">
                 <div class="admin-modal-content">
                     <div class="close-admin-login">+</div>
+                    <h1>Admin Login</h1>
                     <img src="profilepic.jpg" alt="">
                     <form th:action="@{/login}" method="post">
-                        <input type="text" name="username" placeholder="Username" class="text">
-                        <input type="password" name="password" placeholder="Password" class="text">
+                        <input type="text" name="username" placeholder="Username" class="admintext">
+                        <input type="password" name="password" placeholder="Password" class="admintext">
                         <button type="submit" class="btnSubmit">Login</button>
                         
                     </form>
@@ -34,7 +35,7 @@
 
             <!--navigation bar-->
             <nav>
-                <img src = "whale.png" class="logo">
+                <img src = "logo.png" class="logo">
                 <ul>
                     <li><a href="/" id="home">HOME</a></li>
                     <li><a href="#confess" id="confess">CONFESS</a></li>
@@ -65,58 +66,70 @@
                 <a href="#" id="btnConfess" class="btnConfess" >Confess</a>
             </div>
 
-            <!--------confess pop up modal----------->
-            <div class="bg-modal">
-                <div class="modal-content">
-                    <div class="close">+</div>
-                    <div id="iWhaleConfess">I Whale Confess</div>
-                    
-                    <form th:action="@{/}" method="post" enctype="multipart/form-data">
-                    	<div>
-	                        <select placeholder="Reply Id" name="replyId" id="replyIdtxt">
-								<option value= >Not Applicable</option>
-								<option th:each="status:${statusDropdown}" th:value="${status.Id}" th:text="${status.Id}"></option>
-							</select>
-	                        <textarea placeholder="I want to confess..." id="confesstxt" rows = "10"  name="text" type="text" required autofocus="autofocus"></textarea>
-    						<input type="file" name="image" accept="image/png, image/jpeg" />
-                        </div>
-	                        
-	                
-	
-	                    <div class="center">
-	                        <button type="submit" class="btnSubmit">
-	                            Submit Confession
-	                        </button>
-	                    </div>
-                    </form>
-                    
-                    
-                    
-                </div>
-            </div>
+          
+    <div class="bg-modal">
+        <div class="modal-content">
+        
+        <div class="top">
+        	<img src="profilepic.jpg">                   
+           	<div id="iWhaleConfess">I Whale Confess</div>
+            <div class="close">+</div>
         </div>
-
-        <!--------------end oflanding page----------------->
-
-
-
-        <!--------------user page----------------->
-
-
-
-        <div class="userpage">
+        
             
-            <div class="search">
-                <form th:action="@{/search}" method="get" class="search-bar">
-                    <input type="text" placeholder="Search anything" name="keyword" th:value="${keyword}">
-                    <button type="submit" class="btn btn-search"><span class="glyphicon glyphicon-search"> Search</span></button>
-					<button type="submit" class="btn btn-clear"> <span class="glyphicon glyphicon-remove">Clear</span></button>
-                </form>
+            <form th:action="@{/}" method="post" enctype="multipart/form-data">
+            	<div>
+                    <select placeholder="Reply Id" name="replyId" id="replyIdtxt">
+						<option value= >Select Post to Reply</option>
+						<option th:each="status:${statusDropdown}" th:value="${status.Id}" th:text="${status.Id}"></option>
+					</select>
+                    <textarea placeholder="I want to confess..." id="confesstxt" rows = "10"  name="text" type="text" required autofocus="autofocus"></textarea>
+					<input type="file" name="image" accept="image/png, image/jpeg" class="selectimg">
+                </div>
+                <div class="center">
+                    <button type="submit" class="btnSubmit">
+                        Submit Confession
+                    </button>
+             </div>
+                    
+            
+					
+                
+            </form>
+            
+            
+            
+        </div>
+    </div>
+</div>
+
+   
+
+
+
+
+
+
+
+<div class="userpage">
+    
+    <div>
+        <form th:action="@{/search}" method="get" class="input">
+            
+            
+            <div class="search-row">
+            <input type="text" placeholder="Search anything" name="keyword" th:value="${keyword}">
+            <button type="submit" class="btn btn-search"><span class="glyphicon glyphicon-search"> Search</span></button>
+			<button type="submit" class="btn btn-clear"> <span class="glyphicon glyphicon-remove">Clear</span></button>
             </div>
-            <!-- <img src="whitewhale.png" type="image/png"> -->
+        
+        </form>
+        
+    </div>
+   
 
             <th:block th:each = "post: ${posts}">
-            	<div class="posted-1">
+            	<div class="container">
             		<h2>ID: <span th:text="${post.Id}"></span></h2>
             		<br/>
             		<h5>Reply ID: <a th:href="@{/reply/{replyId}(replyId=${post.replyId})}"><span th:text="${post.replyId}"></span></a></h5>
@@ -125,9 +138,11 @@
             		<br/>
             		<h5>Date: <span th:text="${post.date}"></span></h5>
             		<br/>
-            		<div class="image">
-	            		<td th:if="${post.PhotosImagePath}"><img th:src="@{${post.PhotosImagePath}}"  width="300"  height="280" /></td>
+            		<div class="post-image">
+	            		<td th:if="${post.PhotosImagePath}"><img th:src="@{${post.PhotosImagePath}}" /></td>
+	            		<td th:unless="${post.PhotosImagePath}"></td>
 					</div>
+					
             	</div>
             </th:block>
         </div>

@@ -18,7 +18,16 @@
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
+
 <body>
+
+<div class="hero">
+
+	<video autoplay loop muted plays-inline class="back-video">
+	                <source src="viewWhale.mp4" type="video/mp4">
+	</video>
+
+
 	<nav>
         <img src = "whale.png" class="logo">
         <ul>
@@ -27,24 +36,24 @@
     </nav>
 
 
-<div class="container">
-	<table class="table table-bordered table-striped">
-				<thead>
-					<tr>
-						<th>Your confession post ID</th>
-						<th>Your submission date and time</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="post: ${latest}">
-						<td><span th:text="${post.Id}"></span></td>
-						<td><span th:text="${post.date}"></span></td>
-					</tr>
-				</tbody>
-		</table>
-		</div>
+	<div class="container">
+		<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Your confession post ID</th>
+							<th>Your submission date and time</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="post: ${latest}">
+							<td><span th:text="${post.Id}"></span></td>
+							<td><span th:text="${post.date}"></span></td>
+						</tr>
+					</tbody>
+			</table>
+			</div>
 		
-			
+</div>	
 		
 </body>
 </html>

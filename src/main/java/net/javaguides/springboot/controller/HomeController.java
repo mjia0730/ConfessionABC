@@ -105,6 +105,15 @@ public class HomeController {
 		return "replyId.html";
 	}
 	
+	@GetMapping("adminReplyId/{replyId}")
+	private String adminReplypage(@PathVariable (value = "replyId") long replyId, Model model) {
+		//find the original post of replyid by calling method and display its original post
+		Post post = postService.get(replyId);		
+		model.addAttribute("posts", post);
+		//direct to the page of view reply id
+		return "adminReplyId.html";
+	}
+	
 	//Handler method which will handle http get request
 	@GetMapping("/view")
 	private String viewpage( Model model) {
@@ -176,7 +185,7 @@ public class HomeController {
 			 Long id = submissionPost.getId();
 		     String uploadDir = "user-photos/" + id;
 		 
-		     //call the method in FileUploadUtil.java classto save file 
+		     //call the method in FileUploadUtil.java class to save file 
 		     FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);        
 		     postService.saveSubmissionPost(id,text,replyid,fileName);
 		 }
@@ -185,6 +194,7 @@ public class HomeController {
 		return "redirect:/?success";
 	}
 	
+	//delete from mysql database
 	@GetMapping("/deletePosted/{id}")
 	public String delete(@PathVariable (value = "id") long id) {
 		// call delete post method 
@@ -192,6 +202,7 @@ public class HomeController {
 		return "redirect:/adminHome";
 	}
 	
+	//delete from the pending post queue
 	@GetMapping("/deletePending/{id}")
 	public String remove(@PathVariable (value = "id") long id) {
 		

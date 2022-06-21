@@ -11,47 +11,58 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="adminstyle.css">
+    <link rel="stylesheet" href="style.css">
 
   
 </head>
 <body>
-	<nav>
-        <img src = "whale.png" class="logo">
+	<nav class="adminnav">
+        <img src = "logo.png" class="logo">
         <ul>
             <li><a href="/adminHome">HOME</a></li>
           	<li><a href="/admin">PENDING POST</a></li>
             <li><a href="/" id="logout">LOG OUT</a></li>       
         </ul>
     </nav>
+    
+    
+    
 	<div class="userpage">
-		
-		<div class="search">
-            <form th:action="@{/adminHomeSearch}" method="get" class="search-bar">
-                <input type="text" placeholder="Search anything" name="keyword" th:value="${keyword}">
-                <button type="submit" class="btn btn-search"><span class="glyphicon glyphicon-search"> Search</span></button>
-				<button type="submit" class="btn btn-clear"> <span class="glyphicon glyphicon-remove">Clear</span></button>
-            </form>
-        </div>
-		<br>
-		<br>
-		<th:block th:each = "post: ${posts}">
-          	<div class="posted-1">
-          		<h2>ID: <span th:text="${post.Id}"></span></h2>
-          		<br/>
-          		<h5>Reply ID: <a th:href="@{/reply/{replyId}(replyId=${post.replyId})}"><span th:text="${post.replyId}"></span></a></h5>
-          		<br/>
-          		<p><span th:text="${post.text}"></span></p>
-          		<br/>
-          		<h5>Date: <span th:text="${post.date}"></span></h5>
-          		<br/>
-          		<div class="image">
-           			<td th:if="${post.PhotosImagePath}"><img th:src="@{${post.PhotosImagePath}}"  width="300"  height="280" /></td>
-					<td th:unless="${post.PhotosImagePath}"></td>
-				</div>
-				<a th:href="@{/deletePosted/{id}(id=${post.Id})}" class="btn btn-delete">Delete</a>
-          	</div>
-    	</th:block>
-	</div>
+<<<<<<< HEAD
+            
+            <div>
+        <form th:action="@{/adminHomeSearch}" method="get" class="input">
+            
+            
+            <div class="search-row">
+            <input type="text" placeholder="Search anything" name="keyword" th:value="${keyword}">
+            <button type="submit" class="btn btn-search"><span > Search</span></button>
+			<button class="btn btn-clear" href="/adminHome"> <span >Clear</span></button>
+            </div>
+        
+        </form>
+        
+    </div>
+
+            <th:block th:each = "post: ${posts}">
+            	<div class="container">
+            	<a th:href="@{/deletePosted/{id}(id=${post.Id})}" class="btn btn-delete">Delete</a>
+            		<h2>ID: <span th:text="${post.Id}"></span></h2>
+            		<br/>
+            		<h5>Reply ID: <a th:href="@{/adminReplyId/{replyId}(replyId=${post.replyId})}"><span th:text="${post.replyId}"></span></a></h5>
+            		<br/>
+            		<p><span th:text="${post.text}"></span></p>
+            		<br/>
+            		<h5>Date: <span th:text="${post.date}"></span></h5>
+            		<br/>
+            		<div class="post-image">
+	            		<td th:if="${post.PhotosImagePath}"><img th:src="@{${post.PhotosImagePath}}" /></td>
+	            		<td th:unless="${post.PhotosImagePath}"></td>
+					</div>
+					
+					
+            	</div>
+            </th:block>
+
 </body>
 </html>

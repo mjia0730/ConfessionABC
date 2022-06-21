@@ -16,7 +16,37 @@ body{
 	background-repeat: no-repeat;
   	background-attachment: fixed;
   	background-size: 100% 100%;
+  	overflow: scroll;
  
+}
+/*
+body{
+ 	background-image:url("http://wallpapersqq.net/wp-content/uploads/2016/01/Orca-Killer-Whale-ocean-2.jpg");
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: 100% 100%;
+ 
+}*/
+
+
+.back-video{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+@media(min-aspect-ratio: 16/9){
+    .back-video{
+        width: 100%;
+        height: auto;
+    }
+}
+@media(max-aspect-ratio: 16/9){
+    .back-video{
+        width: auto;
+        height: 100%;
+    }
 }
 
 nav{
@@ -27,12 +57,11 @@ nav{
 }
 
 .container{
-
-	position: absolute;
-	top: 40%;
-	left: 53%;
-	transform: translate(-50%, -50%);
-	width:700px;
+	display:flex;
+	margin-top: 100px;
+	margin-left:auto;
+	margin-right: auto;
+	width: 50%;
 }
 
 label{
@@ -57,6 +86,10 @@ label{
 
 
 <body>
+
+
+
+
 <nav>
 <a type="button" class="btn btn-primary btn-lg" href="/" role="button">BACK</a>
     </nav>
@@ -85,8 +118,8 @@ label{
 			<br/>
 			
 			<label>Image:</label><br>
-			<div th:if="${PhotosImagePath}"><img th:src="@{${PhotosImagePath}}"  width="300"  height="280"/></div>
-			<div th:unless="${PhotosImagePath}"></div>
+			<div th:if="*{PhotosImagePath}"><img th:src="*{PhotosImagePath}"  width="300"  height="280"/></div>
+			<div th:unless="*{PhotosImagePath}"></div>
 			<br/>
 		</form>
 		</div>
