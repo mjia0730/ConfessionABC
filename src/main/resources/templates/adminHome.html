@@ -27,7 +27,7 @@
 	<div class="userpage">
 		
 		<div class="search">
-            <form th:action="@{/search}" method="get" class="search-bar">
+            <form th:action="@{/adminHomeSearch}" method="get" class="search-bar">
                 <input type="text" placeholder="Search anything" name="keyword" th:value="${keyword}">
                 <button type="submit" class="btn btn-search"><span class="glyphicon glyphicon-search"> Search</span></button>
 				<button type="submit" class="btn btn-clear"> <span class="glyphicon glyphicon-remove">Clear</span></button>

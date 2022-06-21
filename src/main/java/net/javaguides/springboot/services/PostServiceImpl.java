@@ -49,18 +49,14 @@ public class PostServiceImpl implements PostService{
 		this.postRepository = postRepository;
 	}
 	
-	
-	
-	
 	@Override
 	public Queue<SubmissionPost> saveSubmissionPost(Long id,String text, Long replyId,String photo) throws FileNotFoundException, IOException, ParseException {
 		// TODO Auto-generated method stub
-		SubmissionPost submittedPost = new SubmissionPost(id,text, replyId,photo);
+		SubmissionPost submittedPost = new SubmissionPost(id,text, replyId,photo); //create SubmissionPost object with image
 		
 		submittedPost.setDate(new Date());
 		submittedQueue.add(submittedPost);
 		jsonfile.add(submittedPost);
-
 		
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		   String json = mapper.writeValueAsString(jsonfile);
@@ -71,7 +67,7 @@ public class PostServiceImpl implements PostService{
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
-		   
+		//counting down different time to execute method save() according to the size of queue
 		if(submittedQueue.size()<=5)
 			executor.schedule(task, 1, TimeUnit.MINUTES);
 		else if(submittedQueue.size()<=10)
@@ -85,7 +81,7 @@ public class PostServiceImpl implements PostService{
 	@Override
 	public Queue<SubmissionPost> saveSubmissionPost(Long id,String text, Long replyId) throws FileNotFoundException, IOException, ParseException {
 		// TODO Auto-generated method stub
-		SubmissionPost submittedPost = new SubmissionPost(id,text, replyId);
+		SubmissionPost submittedPost = new SubmissionPost(id,text, replyId); //create SubmissionPost object with no image
 		
 		submittedPost.setDate(new Date());
 		submittedQueue.add(submittedPost);
@@ -115,7 +111,7 @@ public class PostServiceImpl implements PostService{
 	@Override
 	public List<Post> findAll(String keyword, Long id, Long replyId){
 		List<Post> list = postRepository.findBy(keyword, id, replyId);
-		Collections.reverse(list);
+		Collections.reverse(list);	//reverse the list to display newest post first
 		return list;
 	}
 
@@ -149,9 +145,9 @@ public class PostServiceImpl implements PostService{
 	public void save() {
 		// TODO Auto-generated method stub
 		while(!submittedQueue.isEmpty()) {
-			SubmissionPost submittedPost = submittedQueue.poll();
+			SubmissionPost submittedPost = submittedQueue.poll();	
 			Post post = new Post(submittedPost.getId(), submittedPost.getText(),submittedPost.getReplyId(),submittedPost.getDate(),submittedPost.getPhotos());
-			postRepository.save(post);
+			postRepository.save(post);	//save object from queue into database
 		}
 	}
 
@@ -159,12 +155,12 @@ public class PostServiceImpl implements PostService{
 	@Override
 	public List<Post> listAllPost() {
 		// TODO Auto-generated method stub
-		return postRepository.findAll(Sort.by(Sort.Direction.DESC, "Id"));
+		return postRepository.findAll(Sort.by(Sort.Direction.DESC, "Id")); //reverse the list to display newest post first
 	}
 
 
 	@Override
-	public Post get(long id) {
+	public Post get(long id) { //get the posts for a particular id
 		Optional<Post> optional = postRepository.findById(id);
 		Post post = null;
 		if (optional.isPresent()) {
@@ -178,7 +174,7 @@ public class PostServiceImpl implements PostService{
 
 	
 	@Override
-	public void deletePosted(long id) {
+	public void deletePosted(long id) { //recursion method for batch removal
 		while(!postRepository.findByReplyId(id).isEmpty()) {
 			deletePosted(postRepository.findByReplyId(id).get(0).getId());
 		}

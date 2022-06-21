@@ -13,11 +13,15 @@ public class MvcConfig implements WebMvcConfigurer{
 	//MVC = model-view-controller
 	//WebMvcConfigurer = will set up the basic support we need for an MVC project, 
 	//such as registering controllers and mappings, type converters, validation support, message converters and exception handling
+	
+	//This handler is invoked for requests that match one of the specified URL path patterns.
+	//such as "/static/**" or "/css/{filename:\\w+\\.css}" 
 	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         exposeDirectory("user-photos", registry);
     }
-     
+	
+    //To display images in browsers, we need to expose the directory containing the uploaded files so the web browsers can access. 
     private void exposeDirectory(String dirName, ResourceHandlerRegistry registry) {
         Path uploadDir = Paths.get(dirName);
         String uploadPath = uploadDir.toFile().getAbsolutePath();

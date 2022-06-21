@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>ViewConfession</title>
+<title>View reply id</title>
 
  
     <meta charset="UTF-8">
@@ -10,16 +10,55 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="replyid.css">
+<style>
+body{
+ 	background-image:url("http://wallpapersqq.net/wp-content/uploads/2016/01/Orca-Killer-Whale-ocean-2.jpg");
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: 100% 100%;
+ 
+}
 
+nav{
+	position: absolute;
+	top: 6%;
+	left:5%;
+	transform: translate(-50%, -50%);
+}
+
+.container{
+
+	position: absolute;
+	top: 40%;
+	left: 53%;
+	transform: translate(-50%, -50%);
+	width:700px;
+}
+
+label{
+	font-size:22px;
+	color:black;
+}
+
+
+#text{
+	width:600px;
+    background-color:rgb(255,255,255,0.5);
+    font-size:20px;
+	color:black;
+}
+
+
+
+
+
+</style>
 </head>
 
 
 <body>
 <nav>
-        <img src = "whale.png" class="logo">
-        <ul>
-            <li><a href="/">HOME</a></li>   
-        </ul>
+<a type="button" class="btn btn-primary btn-lg" href="/" role="button">BACK</a>
     </nav>
 
 
@@ -30,19 +69,19 @@
 
 			<!-- Add hidden form field to handle update -->
 			<label>ID:</label><br>
-			<input type="text" class="form-control mb-4 col-4"  th:field="*{id}" readonly="readonly" />
+			<input id="text" type="text" class="form-control mb-4 col-4"  th:field="*{id}" readonly="readonly"/>
 			<br/>
 			
 			<label>REPLY ID:</label><br>
-			<input type="text" th:field="*{replyId}" class="form-control mb-4 col-4" readonly="readonly" >
+			<input id="text" type="text" th:field="*{replyId}" class="form-control mb-4 col-4" readonly="readonly" >
 			<br/>
 
 			<label>TEXT:</label><br>
-			<textarea type="text" th:field="*{text}" class="form-control mb-4 col-4"readonly="readonly" ></textarea>
+			<textarea id="text" type="text" th:field="*{text}" class="form-control mb-4 col-4"readonly="readonly" ></textarea>
 			<br/>
 				
 			<label>DATE:</label><br>
-			<input type="text" th:field="*{date}" class="form-control mb-4 col-4" readonly="readonly" >
+			<input id="text" type="text" th:field="*{date}" class="form-control mb-4 col-4" readonly="readonly" >
 			<br/>
 			
 			<label>Image:</label><br>

@@ -1,24 +1,25 @@
 package net.javaguides.springboot.model;
 
 import java.beans.Transient;
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
 
 import javax.persistence.Column;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-
+//pending posts
 public class SubmissionPost {
 	private Long id;
 	private String text;
 	private Long replyId;
-	private Date date;		
+	private Date date;	
+	private Long count= Long.valueOf(0);
 	
 	public SubmissionPost(String text, Long replyId) {
 		super();
@@ -83,6 +84,7 @@ public class SubmissionPost {
 	}
 
 	public void setId() throws FileNotFoundException, IOException, ParseException {
+		/*
 		ObjectMapper objectMapper = new ObjectMapper();
 		long count;
 		File file = new File("posts.json");
@@ -93,8 +95,26 @@ public class SubmissionPost {
 		else {
 		count = str.size()+1;
 		}		
-	
-		this.id = count;
+		*/
+		JSONParser jsonParser = new JSONParser();
+		FileReader reader = new FileReader("posts.json");
+		//Read JSON file
+        Object obj = jsonParser.parse(reader);
+
+        JSONArray List = (JSONArray) obj;
+        count = Long.valueOf(List.size());
+        if(!List.isEmpty()) {
+	        String[] post = List.get(0).toString().split(",");
+	        for(int i=0; i<post.length; i++) {
+	        	System.out.println(post[i]);
+	        	if(post[i].contains("id")) {
+	        		this.id = Long.valueOf(post[i].substring(5)) + count;
+	        		break;
+	        	}
+	        }
+        }
+        else
+        	this.id = Long.valueOf(1);
 	}	
 		
 	public String getText() {

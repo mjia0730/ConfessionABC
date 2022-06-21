@@ -8,8 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "posts")
+@Entity //specifies that this class is an entity and is mapped to a database table.
+@Table(name = "posts") //specifies the name of the database table to be used for mapping
 public class Post {
 	
 	@Id

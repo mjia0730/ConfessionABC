@@ -41,24 +41,25 @@ public class HomeController {
 	@GetMapping(path= {"", "/search"})
 	private String index(Model model, String keyword){
 		if(keyword!=null){
-			try {
-				model.addAttribute("posts", postService.findByDate(formatter.parse(keyword)));
+			try {	//check see whether the keyword entered is a date with time or not
+				model.addAttribute("posts", postService.findByDate(formatter.parse(keyword)));	
 			}catch(ParseException e) {
-				try {
+				try {	//check see whether the keyword entered is a date without time or not
 					model.addAttribute("posts", postService.findByDateWithoutTime(formatterWithoutTime.parse(keyword)));
 				}catch(ParseException e1) {
-					try {
+					try {	//if the keyword is not date, check if the keyword is integer/long 
 						model.addAttribute("posts", postService.findAll(keyword, Long.valueOf(keyword), Long.valueOf(keyword)));
-			        }catch (NumberFormatException ex) {
+			        }catch (NumberFormatException ex) { //if the keyword is neither date nor long, the keyword will be string
 			        	model.addAttribute("posts", postService.findAll(keyword, null, null));
 			        }
 				}
 			}
 		
 		}
-		else
+		else	//if keyword is null, all posts will showed
 			model.addAttribute("posts", postService.listAllPost());
-		 	model.addAttribute("statusDropdown", postService.listAllPost());
+		//list out all the IDs available that the user can replied to
+	 	model.addAttribute("statusDropdown", postService.listAllPost());
 		return "index.html";
 	}
 	
@@ -88,11 +89,12 @@ public class HomeController {
 	
 	@GetMapping("/admin")
 	private String listPendingPost(Model model) {
+		//list all the pending posts
 		model.addAttribute("posts", postService.listAllSubmittedPost());
 		return "admin.html";
 	}
 	
-	//Handler method wchich will handle http get request
+	//Handler method which will handle http get request
 	//view the original post of replyid on the replyId.html page
 	@GetMapping("replyId/{replyId}")
 	private String replypage(@PathVariable (value = "replyId") long replyId, Model model) {
@@ -103,7 +105,7 @@ public class HomeController {
 		return "replyId.html";
 	}
 	
-	//Handler method wchich will handle http get request
+	//Handler method which will handle http get request
 	@GetMapping("/view")
 	private String viewpage( Model model) {
 		//call the view method to view the confession id and submission date and time after posting
@@ -134,19 +136,19 @@ public class HomeController {
         }
 		
 		//check for spam text
-		String[] str = text.split(" ");
+		String[] str = text.split(" "); //split the long text into array of words
 		java.util.Stack<String> subStr =  new java.util.Stack<>();
 		for(int i=1; i<str.length; i++) {
-			subStr.add(str[i]);
+			subStr.add(str[i]); //push the words into a stack
 		}
-		if(subStr.size()>1) {
-			while(!subStr.isEmpty()) {
+		if(subStr.size()>1) {	//if the stack size is greater than 1 word, will check if the stack is full of similar word
+			while(!subStr.isEmpty()) {	
 				if(subStr.peek().equals(str[0]))
-					subStr.pop();
+					subStr.pop();	//similar word will be pop else the checking will end
 				else
 					break;
 			}
-			if(subStr.isEmpty())
+			if(subStr.isEmpty())	//if the stack is empty means the the text is ful of similar words
 				return "redirect:/?error";
 		}
 				
