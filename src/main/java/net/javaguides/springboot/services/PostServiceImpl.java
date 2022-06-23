@@ -69,11 +69,11 @@ public class PostServiceImpl implements PostService{
 	        }
 		//counting down different time to execute method save() according to the size of queue
 		if(submittedQueue.size()<=5)
-			executor.schedule(task, 2, TimeUnit.MINUTES);
+			executor.schedule(task, 5, TimeUnit.MINUTES);
 		else if(submittedQueue.size()<=10)
-			executor.schedule(task, 4, TimeUnit.MINUTES);
+			executor.schedule(task, 10, TimeUnit.MINUTES);
 		else
-			executor.schedule(task, 6, TimeUnit.MINUTES);
+			executor.schedule(task, 15, TimeUnit.MINUTES);
 		return submittedQueue;	
 		 
 	}
@@ -99,11 +99,11 @@ public class PostServiceImpl implements PostService{
 	        }
 		   
 		if(submittedQueue.size()<=5)
-			executor.schedule(task, 1, TimeUnit.MINUTES);
+			executor.schedule(task, 5, TimeUnit.MINUTES);
 		else if(submittedQueue.size()<=10)
-			executor.schedule(task, 2, TimeUnit.MINUTES);
+			executor.schedule(task, 10, TimeUnit.MINUTES);
 		else
-			executor.schedule(task, 3, TimeUnit.MINUTES);
+			executor.schedule(task, 15, TimeUnit.MINUTES);
 		return submittedQueue;	
 		 
 	}
