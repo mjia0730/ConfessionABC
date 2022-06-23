@@ -52,8 +52,14 @@
 				</div>
 			</div>
 								
-			<div th:if="${param.error}">
-				<div class="submitMessage">Fail to submit!</div>				
+			<div th:if="${param.errorRepeat}">
+				<div class="submitMessage">Fail to submit! Similar post have been submitted</div>				
+			</div>
+			<div th:if="${param.errorSame}">
+				<div class="submitMessage">Fail to submit! The content contains repeated text</div>				
+			</div>
+			<div th:if="${param.errorBad}">
+				<div class="submitMessage">Fail to submit! The content contains bad tone</div>				
 			</div>
 			
 			<div th:if="${param.invalid}">
@@ -84,6 +90,9 @@
 						<option th:each="status:${statusDropdown}" th:value="${status.Id}" th:text="${status.Id}"></option>
 					</select>
                     <textarea placeholder="I want to confess..." id="confesstxt" rows = "10"  name="text" type="text" required autofocus="autofocus"></textarea>
+					<br/>
+					<label class="addphoto"> Add a photo: </label>
+					<br/>
 					<input type="file" name="image" accept="image/png, image/jpeg" class="selectimg">
                 </div>
                 <div class="center">
@@ -134,14 +143,15 @@
             		<br/>
             		<h5>Reply ID: <a th:href="@{/reply/{replyId}(replyId=${post.replyId})}"><span th:text="${post.replyId}"></span></a></h5>
             		<br/>
-            		<p><span th:text="${post.text}"></span></p>
+            		<p class="usertext"><span th:text="${post.text}"></span></p>
             		<br/>
-            		<h5>Date: <span th:text="${post.date}"></span></h5>
+            		
             		<br/>
             		<div class="post-image">
 	            		<td th:if="${post.PhotosImagePath}"><img th:src="@{${post.PhotosImagePath}}" /></td>
 	            		<td th:unless="${post.PhotosImagePath}"></td>
 					</div>
+					<h5>Date: <span th:text="${post.date}"></span></h5>
 					
             	</div>
             </th:block>

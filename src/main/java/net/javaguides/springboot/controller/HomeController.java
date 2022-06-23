@@ -141,31 +141,31 @@ public class HomeController {
 		//check if in 5 mins time did user repeatedly post same confession
 		for (SubmissionPost item: postService.listAllSubmittedPost()) {
             if(text.equals(item.getText()))
-            	return "redirect:/create?error";
+            	return "redirect:/?errorRepeat";
         }
 		
 		//check for spam text
-		String[] str = text.split(" "); //split the long text into array of words
-		java.util.Stack<String> subStr =  new java.util.Stack<>();
-		for(int i=1; i<str.length; i++) {
-			subStr.add(str[i]); //push the words into a stack
-		}
-		if(subStr.size()>1) {	//if the stack size is greater than 1 word, will check if the stack is full of similar word
-			while(!subStr.isEmpty()) {	
-				if(subStr.peek().equals(str[0]))
-					subStr.pop();	//similar word will be pop else the checking will end
-				else
-					break;
+		String[] str = text.split(" "); //split the long text into array of words	 
+		for(int i=0; i<str.length; i++) {
+			int count=0;
+			for(int j=0; j<str.length; j++) {
+				if(j==i)
+					continue;
+				else {
+					if(str[j].equals(str[i]))
+						count++;
+				}
+				if(count>=3)
+					return "redirect:/?errorSame";
 			}
-			if(subStr.isEmpty())	//if the stack is empty means the the text is ful of similar words
-				return "redirect:/?error";
 		}
+
 				
 		//check for bad tone
 		String[] badTone = {"stupid","idiot","fuck", "nigga", "bastard", "dick head", "bitch", "asshole"};
 		for(int i=0; i<badTone.length; i++) {
 			if(text.toLowerCase().contains(badTone[i].toLowerCase()))
-				return "redirect:/?error";
+				return "redirect:/?errorBad";
 		}
 		
 		//add photo file 

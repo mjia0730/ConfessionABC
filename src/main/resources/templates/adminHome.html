@@ -15,7 +15,7 @@
 
   
 </head>
-<body>
+<body class= "adminbody">
 	<nav class="adminnav">
         <img src = "logo.png" class="logo">
         <ul>
@@ -51,14 +51,15 @@
             		<br/>
             		<h5>Reply ID: <a th:href="@{/adminReplyId/{replyId}(replyId=${post.replyId})}"><span th:text="${post.replyId}"></span></a></h5>
             		<br/>
-            		<p><span th:text="${post.text}"></span></p>
+            		<p class="usertext"><span th:text="${post.text}"></span></p>
             		<br/>
-            		<h5>Date: <span th:text="${post.date}"></span></h5>
+            		
             		<br/>
             		<div class="post-image">
 	            		<td th:if="${post.PhotosImagePath}"><img th:src="@{${post.PhotosImagePath}}" /></td>
 	            		<td th:unless="${post.PhotosImagePath}"></td>
 					</div>
+					<h5>Date: <span th:text="${post.date}"></span></h5>
 					
 					
             	</div>
